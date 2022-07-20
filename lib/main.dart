@@ -14,8 +14,8 @@ Future<void> main() async {
   await Firebase.initializeApp();
 
   final customLocalNotification = CustomLocalNotification();
-  // await CustomFirebaseMessaging(customLocalNotification).initialize();
-  // await CustomFirebaseMessaging(customLocalNotification).getTokenFirebase();
+  await CustomFirebaseMessaging(customLocalNotification).initialize();
+  await CustomFirebaseMessaging(customLocalNotification).getTokenFirebase();
 
   runApp(const MyApp());
 }
