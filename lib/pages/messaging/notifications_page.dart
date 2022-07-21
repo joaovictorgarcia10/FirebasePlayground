@@ -14,7 +14,9 @@ class _NotificationsPageState extends State<NotificationsPage> {
       appBar: AppBar(
         title: const Text('Notifications Page'),
       ),
-      body: Container(),
+      body: const Center(
+        child: Icon(Icons.message_outlined),
+      ),
     );
   }
 }

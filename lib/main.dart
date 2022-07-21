@@ -1,21 +1,38 @@
-// import 'package:firebase_core/firebase_core.dart';
+import 'dart:async';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_playground/firebase_messaging/custom_firebase_messaging.dart';
 import 'package:firebase_playground/firebase_messaging/custom_local_notification.dart';
+import 'package:firebase_playground/firebase_remote_config/custom_firebase_remote_config.dart';
+import 'package:firebase_playground/pages/auth/auth_page.dart';
+import 'package:firebase_playground/pages/crashlytics/crashlytics_page.dart';
+import 'package:firebase_playground/pages/firestore/firestore_page.dart';
 import 'package:firebase_playground/pages/home_page.dart';
-import 'package:firebase_playground/pages/second_page.dart';
+import 'package:firebase_playground/pages/messaging/messaging_page.dart';
+import 'package:firebase_playground/pages/messaging/notifications_page.dart';
+import 'package:firebase_playground/pages/remote_config/remote_config_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  await runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
+      await Firebase.initializeApp();
 
-  final customLocalNotification = CustomLocalNotification();
-  await CustomFirebaseMessaging(customLocalNotification).initialize();
-  await CustomFirebaseMessaging(customLocalNotification).getTokenFirebase();
+      await CustomFirebaseRemoteConfig().initialize();
+
+      await CustomFirebaseMessaging().initialize(
+        callback: () => CustomFirebaseRemoteConfig().forceFetch(),
+      );
+
+      CustomLocalNotification().checkForNotifications();
+
+      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    },
+    // onError
+    (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack),
+  );
 
   runApp(const MyApp());
 }
@@ -37,7 +54,14 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (context) => const HomePage(),
         '/notifications': (context) => const NotificationsPage(),
+        '/remote_config': (context) => const RemoteConfigPage(),
+        '/cloud_messaging': (context) => const MessagingPage(),
+        '/crashlytics': (context) => const CrashlyticsPage(),
+        '/auth': (context) => const AuthPage(),
+        '/firestore': (context) => const FirestorePage()
       },
     );
   }
 }
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

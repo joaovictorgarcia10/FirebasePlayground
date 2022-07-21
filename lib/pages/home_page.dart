@@ -1,4 +1,5 @@
-import 'package:firebase_playground/firebase_messaging/custom_local_notification.dart';
+import 'package:firebase_playground/firebase_remote_config/custom_firebase_remote_config.dart';
+import 'package:firebase_playground/firebase_remote_config/custom_visibility_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,24 +10,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool valor = false;
-  final customLocalNotification = CustomLocalNotification();
-
-  void onTap() {
-    setState(() {
-      valor = !valor;
-    });
-
-    if (valor) {
-      customLocalNotification.showNotification(
-        LocalNotification(
-          id: 1,
-          title: "Finalizar mais tarde!",
-          body: "Para finalizar a sua contratação clique aqui.",
-          payload: "/notifications",
-        ),
-      );
-    }
+  @override
+  void initState() {
+    super.initState();
+    CustomFirebaseRemoteConfig().forceFetch();
   }
 
   @override
@@ -37,27 +24,54 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Card(
-              child: ListTile(
-                title: const Text("Finalizar mais tarde"),
-                trailing: valor
-                    ? const Icon(Icons.check_box, color: Colors.green)
-                    : const Icon(Icons.check_box_outline_blank),
-                onTap: onTap,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed("/cloud_messaging");
+                },
+                child: const Text("Firebase Cloud Messaging"),
               ),
-            ),
-          ],
+              const SizedBox(height: 20.0),
+
+              // Feature Toggle com Firebase Remote Config
+              CustomVisibilityWidget(
+                defaultValue: false,
+                remoteConfigKey: "remote_config_example_ready",
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed("/remote_config");
+                  },
+                  child: const Text("Firebase Remote Config"),
+                ),
+              ),
+
+              const SizedBox(height: 20.0),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed("/crashlytics");
+                },
+                child: const Text("Firebase Crashlytics"),
+              ),
+              const SizedBox(height: 20.0),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed("/auth");
+                },
+                child: const Text("Firebase Auth"),
+              ),
+              const SizedBox(height: 20.0),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed("/firestore");
+                },
+                child: const Text("Firebase Firestore"),
+              ),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed("/notifications");
-        },
-        tooltip: 'Navigate',
-        child: const Icon(Icons.notifications_active_outlined),
       ),
     );
   }

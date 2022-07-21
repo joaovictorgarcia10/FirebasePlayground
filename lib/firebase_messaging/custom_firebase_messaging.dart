@@ -6,9 +6,14 @@ import 'custom_local_notification.dart';
 class CustomFirebaseMessaging {
   final CustomLocalNotification _customLocalNotification;
 
-  CustomFirebaseMessaging(this._customLocalNotification);
+  CustomFirebaseMessaging._internal(this._customLocalNotification);
 
-  Future<void> initialize() async {
+  static final CustomFirebaseMessaging _singleton =
+      CustomFirebaseMessaging._internal(CustomLocalNotification());
+
+  factory CustomFirebaseMessaging() => _singleton;
+
+  Future<void> initialize({VoidCallback? callback}) async {
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(
       badge: true,
@@ -22,6 +27,12 @@ class CustomFirebaseMessaging {
         AndroidNotification? android = message.notification?.android;
         AppleNotification? apple = message.notification?.apple;
 
+        if (message.data["remoteConfigForceFetch"] != null) {
+          callback?.call();
+          return;
+        }
+
+        /// Android
         if (notification != null && android != null) {
           _customLocalNotification.showNotification(
             LocalNotification(
@@ -33,6 +44,7 @@ class CustomFirebaseMessaging {
           );
         }
 
+        /// IOS
         if (notification != null && apple != null) {
           _customLocalNotification.showNotification(
             LocalNotification(
@@ -48,7 +60,13 @@ class CustomFirebaseMessaging {
 
     FirebaseMessaging.onMessageOpenedApp.listen(
       (message) {
+        if (message.data["remoteConfigForceFetch"] != null) {
+          callback?.call();
+          return;
+        }
+
         if (message.data['route'] != null) {
+          navigatorKey.currentState?.pushNamed(message.data['/']);
           navigatorKey.currentState?.pushNamed(message.data['route']);
         }
       },
