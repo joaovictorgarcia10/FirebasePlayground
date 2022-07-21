@@ -1,4 +1,4 @@
-// import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_playground/main.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
@@ -10,14 +10,14 @@ class LocalNotification {
   final String title;
   final String body;
   final String? payload;
-  // final RemoteMessage? remoteMessage;
+  final RemoteMessage? remoteMessage;
 
   LocalNotification({
     required this.id,
     required this.title,
     required this.body,
     this.payload,
-    // this.remoteMessage,
+    this.remoteMessage,
   });
 }
 
@@ -68,35 +68,35 @@ class CustomLocalNotification {
     );
   }
 
-  // showNotificationScheduled({
-  //   required LocalNotification notification,
-  //   required Duration duration,
-  // }) {
-  //   final date = DateTime.now().add(duration);
+  showNotificationScheduled({
+    required LocalNotification notification,
+    required Duration duration,
+  }) {
+    final date = DateTime.now().add(duration);
 
-  //   flutterLocalNotificationsPlugin.zonedSchedule(
-  //     notification.id,
-  //     notification.title,
-  //     notification.body,
-  //     tz.TZDateTime.from(date, tz.local),
-  //     const NotificationDetails(
-  //       android: androidNotificationDetails,
-  //       iOS: iosNotificationDetails,
-  //     ),
-  //     payload: notification.payload,
-  //     androidAllowWhileIdle: true,
-  //     uiLocalNotificationDateInterpretation:
-  //         UILocalNotificationDateInterpretation.absoluteTime,
-  //   );
-  // }
+    flutterLocalNotificationsPlugin.zonedSchedule(
+      notification.id,
+      notification.title,
+      notification.body,
+      tz.TZDateTime.from(date, tz.local),
+      const NotificationDetails(
+        android: androidNotificationDetails,
+        iOS: iosNotificationDetails,
+      ),
+      payload: notification.payload,
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+    );
+  }
 
-//   checkForNotifications() async {
-//     final details =
-//         await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
-//     if (details != null && details.didNotificationLaunchApp) {
-//       _onSelectNotification(details.payload);
-//     }
-//   }
+  checkForNotifications() async {
+    final details =
+        await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+    if (details != null && details.didNotificationLaunchApp) {
+      _onSelectNotification(details.payload);
+    }
+  }
 }
 
 /// Notification Details
