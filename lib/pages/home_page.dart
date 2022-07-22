@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
               // Feature Toggle com Firebase Remote Config
               CustomVisibilityWidget(
                 defaultValue: false,
-                remoteConfigKey: "remote_config_example_ready",
+                remoteConfigKey: "remote_config_is_ready",
                 child: TextButton(
                   onPressed: () =>
                       Navigator.pushNamed(context, "/remote_config"),
@@ -59,9 +59,14 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 20.0),
 
-              TextButton(
-                onPressed: () => Navigator.pushNamed(context, "/firestore"),
-                child: const Text("Firebase Firestore"),
+              // Feature Toggle com Firebase Remote Config
+              CustomVisibilityWidget(
+                defaultValue: false,
+                remoteConfigKey: "firestore_is_ready",
+                child: TextButton(
+                  onPressed: () => Navigator.pushNamed(context, "/firestore"),
+                  child: const Text("Firebase Firestore"),
+                ),
               ),
             ],
           ),

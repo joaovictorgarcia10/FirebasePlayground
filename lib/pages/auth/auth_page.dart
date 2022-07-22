@@ -13,7 +13,6 @@ class AuthPage extends StatefulWidget {
 
 class _AuthPageState extends State<AuthPage> {
   final AuthInterface authController = CustomFirebaseAuth();
-
   TextEditingController emailText = TextEditingController();
   TextEditingController passwordText = TextEditingController();
 
@@ -43,7 +42,10 @@ class _AuthPageState extends State<AuthPage> {
                   controller: passwordText,
                 ),
                 const SizedBox(height: 50.0),
+
+                // Login
                 ElevatedButton(
+                  child: const Text("Sign in"),
                   onPressed: () async {
                     if (authController.isValidInputs(
                       email: emailText.text,
@@ -51,29 +53,24 @@ class _AuthPageState extends State<AuthPage> {
                     )) {
                       await authController
                           .doLogin(
-                            email: emailText.text,
-                            password: passwordText.text,
-                          )
-                          .then(
-                            (value) =>
-                                ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              email: emailText.text,
+                              password: passwordText.text)
+                          .then((value) => ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(
                                   content: value
                                       ? const Text("Sucesso no Login")
-                                      : const Text("Falha no Login")),
-                            ),
-                          );
+                                      : const Text("Falha no Login"))));
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text("Preencha os campos corretamente")),
-                      );
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Preencha os campos corretamente")));
                     }
                   },
-                  child: const Text("Sign in"),
                 ),
                 const SizedBox(height: 20.0),
+
+                // Register
                 ElevatedButton(
+                  child: const Text("Sign up"),
                   onPressed: () async {
                     if (authController.isValidInputs(
                       email: emailText.text,
@@ -81,26 +78,18 @@ class _AuthPageState extends State<AuthPage> {
                     )) {
                       await authController
                           .registerUser(
-                            email: emailText.text,
-                            password: passwordText.text,
-                          )
-                          .then(
-                            (value) =>
-                                ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              email: emailText.text,
+                              password: passwordText.text)
+                          .then((value) => ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(
                                   content: value
                                       ? const Text("Sucesso no Registro")
-                                      : const Text("Falha no Registro")),
-                            ),
-                          );
+                                      : const Text("Falha no Registro"))));
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text("Preencha os campos corretamente")),
-                      );
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Preencha os campos corretamente")));
                     }
                   },
-                  child: const Text("Sign up"),
                 ),
               ],
             ),
