@@ -14,10 +14,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
+  // runZonedGuarded para registrar erros no FirebaseCrashlytics
   await runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
-
       await Firebase.initializeApp();
 
       await CustomFirebaseRemoteConfig().initialize();
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Firebase Playground',
       navigatorKey: navigatorKey,
       theme: ThemeData(
         primarySwatch: Colors.red,

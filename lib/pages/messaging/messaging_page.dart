@@ -18,14 +18,14 @@ class _MessagingPageState extends State<MessagingPage> {
     });
 
     if (valor) {
-      customLocalNotification.showNotification(
-        LocalNotification(
-          id: 1,
-          title: "Finalizar mais tarde!",
-          body: "Para finalizar a sua contratação clique aqui.",
-          payload: "/notifications",
-        ),
-      );
+      customLocalNotification.showNotificationScheduled(
+          notification: LocalNotification(
+            id: 1,
+            title: "Finalizar mais tarde!",
+            body: "Para finalizar a sua contratação clique aqui.",
+            payload: "/notifications",
+          ),
+          duration: const Duration(seconds: 10));
     }
   }
 

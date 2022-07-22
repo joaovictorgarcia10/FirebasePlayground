@@ -44,7 +44,7 @@ class CustomFirebaseMessaging {
           );
         }
 
-        /// IOS
+        /// TODO: finalizar integração para Remote Push Notifications no IOS
         if (notification != null && apple != null) {
           _customLocalNotification.showNotification(
             LocalNotification(
