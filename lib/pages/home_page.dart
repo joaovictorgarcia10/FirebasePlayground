@@ -29,9 +29,8 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed("/cloud_messaging");
-                },
+                onPressed: () =>
+                    Navigator.pushNamed(context, "/cloud_messaging"),
                 child: const Text("Firebase Cloud Messaging"),
               ),
               const SizedBox(height: 20.0),
@@ -41,32 +40,27 @@ class _HomePageState extends State<HomePage> {
                 defaultValue: false,
                 remoteConfigKey: "remote_config_example_ready",
                 child: TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed("/remote_config");
-                  },
+                  onPressed: () =>
+                      Navigator.pushNamed(context, "/remote_config"),
                   child: const Text("Firebase Remote Config"),
                 ),
               ),
-
               const SizedBox(height: 20.0),
+
               TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed("/crashlytics");
-                },
+                onPressed: () => Navigator.pushNamed(context, "/crashlytics"),
                 child: const Text("Firebase Crashlytics"),
               ),
               const SizedBox(height: 20.0),
+
               TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed("/auth");
-                },
+                onPressed: () => Navigator.pushNamed(context, "/auth"),
                 child: const Text("Firebase Auth"),
               ),
               const SizedBox(height: 20.0),
+
               TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed("/firestore");
-                },
+                onPressed: () => Navigator.pushNamed(context, "/firestore"),
                 child: const Text("Firebase Firestore"),
               ),
             ],
