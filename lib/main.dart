@@ -25,6 +25,7 @@ Future<void> main() async {
 
       await CustomFirebaseMessaging().initialize(
           callback: () => CustomFirebaseRemoteConfig().forceFetch());
+
       CustomLocalNotification().checkForNotifications();
 
       FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;

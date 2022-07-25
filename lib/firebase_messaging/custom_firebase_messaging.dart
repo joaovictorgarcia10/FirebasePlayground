@@ -4,7 +4,7 @@ import 'package:firebase_playground/main.dart';
 import 'custom_local_notification.dart';
 
 class CustomFirebaseMessaging {
-  final CustomLocalNotification _customLocalNotification;
+  late CustomLocalNotification _customLocalNotification;
 
   CustomFirebaseMessaging._internal(this._customLocalNotification);
 
