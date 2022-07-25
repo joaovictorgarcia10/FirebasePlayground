@@ -11,7 +11,7 @@ import 'package:firebase_playground/pages/messaging/messaging_page.dart';
 import 'package:firebase_playground/pages/messaging/notifications_page.dart';
 import 'package:firebase_playground/pages/remote_config/remote_config_page.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_playground/pages/test_example/example_page.dart';
+import 'package:firebase_playground/pages/example/example_page.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {

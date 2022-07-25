@@ -1,4 +1,4 @@
-import 'package:firebase_playground/pages/test_example/example_controller.dart';
+import 'package:firebase_playground/pages/example/example_controller.dart';
 import 'package:flutter/material.dart';
 
 class ExamplePage extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:firebase_playground/pages/test_example/example_controller.dart';
+import 'package:firebase_playground/pages/example/example_controller.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
