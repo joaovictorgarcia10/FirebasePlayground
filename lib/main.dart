@@ -11,6 +11,7 @@ import 'package:firebase_playground/pages/messaging/messaging_page.dart';
 import 'package:firebase_playground/pages/messaging/notifications_page.dart';
 import 'package:firebase_playground/pages/remote_config/remote_config_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_playground/pages/test_example/example_page.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
@@ -23,9 +24,7 @@ Future<void> main() async {
       await CustomFirebaseRemoteConfig().initialize();
 
       await CustomFirebaseMessaging().initialize(
-        callback: () => CustomFirebaseRemoteConfig().forceFetch(),
-      );
-
+          callback: () => CustomFirebaseRemoteConfig().forceFetch());
       CustomLocalNotification().checkForNotifications();
 
       FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
@@ -58,7 +57,8 @@ class MyApp extends StatelessWidget {
         '/cloud_messaging': (context) => const MessagingPage(),
         '/crashlytics': (context) => const CrashlyticsPage(),
         '/auth': (context) => const AuthPage(),
-        '/firestore': (context) => const FirestorePage()
+        '/firestore': (context) => const FirestorePage(),
+        '/test_example': (context) => const ExamplePage(),
       },
     );
   }

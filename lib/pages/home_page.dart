@@ -68,6 +68,13 @@ class _HomePageState extends State<HomePage> {
                   child: const Text("Firebase Firestore"),
                 ),
               ),
+              const SizedBox(height: 20.0),
+
+              TextButton(
+                key: const Key("button_test_example"),
+                onPressed: () => Navigator.pushNamed(context, "/test_example"),
+                child: const Text("Test Example"),
+              ),
             ],
           ),
         ),
