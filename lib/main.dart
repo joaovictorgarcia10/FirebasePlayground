@@ -22,20 +22,14 @@ Future<void> main() async {
     () async {
       WidgetsFlutterBinding.ensureInitialized();
 
-      // i18n
-      I18nLocalizations(
-        packages: [
-          "",
-          "",
-          //...
-        ],
-      );
-
       // Firebase Services
       await Firebase.initializeApp();
+
       await CustomFirebaseRemoteConfig().initialize();
+
       await CustomFirebaseMessaging().initialize(
           callback: () => CustomFirebaseRemoteConfig().forceFetch());
+
       FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
       // Check for Scheculed Notifications
@@ -48,12 +42,41 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Locale localeResolutionCallback(locale, supportedLocales) {
+      for (var supportedLocale in supportedLocales) {
+        if (locale != null &&
+            supportedLocale.languageCode == locale.languageCode &&
+            supportedLocale.countryCode == locale.countryCode) {
+          return supportedLocale;
+        }
+      }
+
+      return supportedLocales.first;
+    }
+
+    // i18n
+    I18nLocalizations.startWithPackages(
+      [
+        "app",
+      ],
+      [
+        const Locale("pt", "BR"),
+        const Locale("en", "US"),
+      ],
+      localeResolutionCallback,
+    );
+
     return MaterialApp(
       title: 'Flutter Firebase Playground',
       navigatorKey: navigatorKey,
