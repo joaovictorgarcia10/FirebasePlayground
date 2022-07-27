@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
-import 'package:firebase_playground/firebase_auth/auth_interface.dart';
-import 'package:firebase_playground/firebase_auth/custom_firebase_auth.dart';
+import 'package:firebase_playground/services/firebase_auth/auth_interface.dart';
+import 'package:firebase_playground/services/firebase_auth/custom_firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AuthPage extends StatefulWidget {

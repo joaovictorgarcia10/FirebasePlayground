@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_playground/firebase_auth/auth_interface.dart';
+import 'package:firebase_playground/services/firebase_auth/auth_interface.dart';
 
 class CustomFirebaseAuth implements AuthInterface {
   late FirebaseAuth _firebaseAuth;

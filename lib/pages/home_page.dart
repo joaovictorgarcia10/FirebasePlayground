@@ -1,5 +1,5 @@
-import 'package:firebase_playground/firebase_remote_config/custom_firebase_remote_config.dart';
-import 'package:firebase_playground/firebase_remote_config/custom_visibility_widget.dart';
+import 'package:firebase_playground/services/firebase_remote_config/custom_firebase_remote_config.dart';
+import 'package:firebase_playground/services/firebase_remote_config/custom_visibility_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {

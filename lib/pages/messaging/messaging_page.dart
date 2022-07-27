@@ -1,4 +1,4 @@
-import 'package:firebase_playground/firebase_messaging/custom_local_notification.dart';
+import 'package:firebase_playground/services/firebase_messaging/custom_local_notification.dart';
 import 'package:flutter/material.dart';
 
 class MessagingPage extends StatefulWidget {
