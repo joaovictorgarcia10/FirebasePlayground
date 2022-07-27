@@ -70,7 +70,7 @@ class I18nLocalizations {
     await Future.wait(packages.map((e) => _loadLocalJson(_locale, e)));
 
     try {
-      final instance = RemoteConfig.instance;
+      final instance = FirebaseRemoteConfig.instance;
       try {
         await instance.fetchAndActivate();
       } catch (_) {
@@ -86,7 +86,7 @@ class I18nLocalizations {
         await Future.wait(packages.map((e) => _loadLocalCache(_locale, e)));
       }
     } catch (e) {
-      final error =
+      const error =
           "ERROR i18n REMOTE CONFIG \n1- Add GoogleService-Info.plist for iOS and GoogleService.json for android";
       _printLog(error);
     }
@@ -101,7 +101,7 @@ class I18nLocalizations {
       final value = instance.getString("${package}_$locale");
       if (value.isNotEmpty) _locales[package]?.addAll(jsonDecode(value));
     } catch (e) {
-      final error =
+      const error =
           "ERROR i18n GET VALUE REMOTE CONFIG \n1- Verify if the correct locale was created in REMOTE CONFIG";
       throw ErrorHint(error);
     }

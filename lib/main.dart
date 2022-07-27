@@ -10,6 +10,7 @@ import 'package:firebase_playground/pages/messaging/notifications_page.dart';
 import 'package:firebase_playground/pages/remote_config/remote_config_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_playground/pages/example/example_page.dart';
+import 'package:firebase_playground/pages/splash_page.dart';
 import 'package:firebase_playground/services/firebase_messaging/custom_firebase_messaging.dart';
 import 'package:firebase_playground/services/firebase_remote_config/custom_firebase_remote_config.dart';
 import 'package:flutter/material.dart';
@@ -50,39 +51,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
+// This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Locale localeResolutionCallback(locale, supportedLocales) {
-      for (var supportedLocale in supportedLocales) {
-        if (locale != null &&
-            supportedLocale.languageCode == locale.languageCode &&
-            supportedLocale.countryCode == locale.countryCode) {
-          return supportedLocale;
-        }
-      }
-
-      return supportedLocales.first;
-    }
-
-    // i18n
-    I18nLocalizations.startWithPackages(
-      [
-        "app",
-      ],
-      [
-        const Locale("pt", "BR"),
-        const Locale("en", "US"),
-      ],
-      localeResolutionCallback,
-    );
-
     return MaterialApp(
       title: 'Flutter Firebase Playground',
       navigatorKey: navigatorKey,
       theme: ThemeData(primarySwatch: Colors.red, brightness: Brightness.dark),
-      initialRoute: '/home',
+      initialRoute: '/splash',
       routes: {
+        '/splash': (context) => const SplashPage(),
         '/home': (context) => const HomePage(),
         '/notifications': (context) => const NotificationsPage(),
         '/remote_config': (context) => const RemoteConfigPage(),
