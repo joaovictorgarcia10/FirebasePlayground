@@ -13,20 +13,16 @@ class _SplashPageState extends State<SplashPage> {
   final i18n = I18nLocalizations();
 
   Future<void> initI18n() async {
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 3));
 
-    I18nLocalizations.startWithPackages(
-      [
-        "app",
-      ],
-      [
+    await I18nLocalizations.startWithPackages(
+      packages: ["app"],
+      locales: [
         const Locale("pt", "BR"),
         const Locale("en", "US"),
       ],
-      localeResolutionCallback,
+      localeResolutionCallback: localeResolutionCallback,
     );
-
-    await i18n.load();
   }
 
   @override

@@ -28,7 +28,7 @@ PODS:
     - Firebase/Messaging (= 9.2.0)
     - firebase_core
     - Flutter
-  - firebase_remote_config (2.0.12):
+  - firebase_remote_config (2.0.13):
     - Firebase/RemoteConfig (= 9.2.0)
     - firebase_core
     - Flutter
@@ -112,6 +112,8 @@ PODS:
     - nanopb/encode (= 2.30909.0)
   - nanopb/decode (2.30909.0)
   - nanopb/encode (2.30909.0)
+  - path_provider_ios (0.0.1):
+    - Flutter
   - PromisesObjC (2.1.1)
 
 DEPENDENCIES:
@@ -124,6 +126,7 @@ DEPENDENCIES:
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - flutter_native_timezone (from `.symlinks/plugins/flutter_native_timezone/ios`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
 
 SPEC REPOS:
   trunk:
@@ -162,6 +165,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_native_timezone/ios"
   integration_test:
     :path: ".symlinks/plugins/integration_test/ios"
+  path_provider_ios:
+    :path: ".symlinks/plugins/path_provider_ios/ios"
 
 SPEC CHECKSUMS:
   Firebase: 4ba896cb8e5105d4b9e247e1c1b6222b548df55a
@@ -169,7 +174,7 @@ SPEC CHECKSUMS:
   firebase_core: ada8be870601fe3c2684dae2356f634189bd598f
   firebase_crashlytics: a6b209af120d95af9148d7dc544a925eae890c8d
   firebase_messaging: ce76a2cce70922525bc8815101504f80a943e280
-  firebase_remote_config: 6be94018a45a050e440addc14c17c637e43143df
+  firebase_remote_config: 0ad565a708fd275de7f0acbbb2f07036dd71f354
   FirebaseABTesting: d7383da017eff5dc4fccb40987fa76271fd1cdbf
   FirebaseAuth: 1c574ab64a051dd86dbe7fd5a3f86b58155b3482
   FirebaseCore: 0e27f2a15d8f7b7ef11e7d93e23b1cbab55d748c
@@ -187,6 +192,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 681175626052e03fdde7952f7e9c7a9785719506
   integration_test: a1e7d09bd98eca2fc37aefd79d4f41ad37bdbbe5
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
+  path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
 
 PODFILE CHECKSUM: 3dffd8c48b531d21ec0ec153c22dc8e3a6223bc9

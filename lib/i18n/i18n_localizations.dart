@@ -7,37 +7,38 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class I18nLocalizations {
-  static I18nLocalizations _instance = I18nLocalizations._();
-
-  static final GlobalKey<NavigatorState> navigatorKey =
-      GlobalKey<NavigatorState>();
-
-  static late String _locale;
-
-  static void startWithPackages(List<String> packages, Iterable<Locale> locales,
-      Locale Function(Locale?, Iterable<Locale>) localeResolutionCallback) {
-    _instance.packages.addAll(packages);
-    _locale = localeResolutionCallback(platformLocale, locales).toString();
-  }
-
-  factory I18nLocalizations() {
-    return _instance;
-  }
-
-  I18nLocalizations._() {
+  I18nLocalizations._internal() {
     Hive.initFlutter();
   }
 
+  static final I18nLocalizations _singleton = I18nLocalizations._internal();
+
+  factory I18nLocalizations() => _singleton;
+
+  static late String _locale;
   var _locales = <String, Map<String, dynamic>>{};
+
   final List<String> packages = <String>[];
   late Box<Map<String, dynamic>> _hiveBox;
+
+  static Future<void> startWithPackages({
+    required List<String> packages,
+    required Iterable<Locale> locales,
+    required Locale Function(Locale?, Iterable<Locale>)
+        localeResolutionCallback,
+  }) async {
+    _singleton.packages.addAll(packages);
+    _locale = localeResolutionCallback(platformLocale, locales).toString();
+    await _singleton.load();
+  }
 
   Future<String> loadStringByPath(String path) => rootBundle.loadString(path);
 
   Future<void> _loadLocalJson(String locale, [String? package]) async {
-    final path = package != "app"
+    final path = (package != "app")
         ? "packages/$package/lang/$locale.json"
         : "lang/$locale.json";
+
     try {
       final json = await loadStringByPath(path);
       final key = (package != null) ? package : "app";
@@ -64,8 +65,6 @@ class I18nLocalizations {
   }
 
   Future<void> load() async {
-    await Hive.initFlutter();
-
     _hiveBox = await Hive.openBox('i18n');
     await Future.wait(packages.map((e) => _loadLocalJson(_locale, e)));
 
@@ -77,10 +76,13 @@ class I18nLocalizations {
         _printLog(
             "ERROR i18n REMOTE CONFIG \nFetch failure, connection might be unavailable");
       }
+
       if (instance.lastFetchStatus == RemoteConfigFetchStatus.success) {
         _printLog("I18n - Using remote config");
         await Future.wait(packages.map((e) => startRemoteConfig(_locale, e)));
-        packages.forEach((e) => _saveLocalCache(_locale, e));
+        for (var e in packages) {
+          _saveLocalCache(_locale, e);
+        }
       } else {
         _printLog("I18n - Using local cache");
         await Future.wait(packages.map((e) => _loadLocalCache(_locale, e)));
@@ -98,6 +100,7 @@ class I18nLocalizations {
     try {
       final instance = FirebaseRemoteConfig.instance;
       _printLog("${package}_$locale");
+
       final value = instance.getString("${package}_$locale");
       if (value.isNotEmpty) _locales[package]?.addAll(jsonDecode(value));
     } catch (e) {
