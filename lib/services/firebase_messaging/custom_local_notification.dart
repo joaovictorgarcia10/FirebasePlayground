@@ -56,7 +56,8 @@ class CustomLocalNotification {
   }
 
   showNotification(LocalNotification notification) {
-    flutterLocalNotificationsPlugin.show(
+    flutterLocalNotificationsPlugin
+        .show(
       notification.id,
       notification.title,
       notification.body,
@@ -65,7 +66,20 @@ class CustomLocalNotification {
         iOS: iosNotificationDetails,
       ),
       payload: notification.payload,
-    );
+    )
+        .then((_) {
+      // TODO: salvar notificação em local storage para criar "área de notificações"
+      print("""
+          Notificação Recebida... 
+
+          ID: ${notification.id}, 
+          Title: ${notification.title},
+          Body: ${notification.body},
+          Payload: ${notification.payload},
+          Remote Message: ${notification.remoteMessage},
+
+          """);
+    });
   }
 
   showNotificationScheduled({
@@ -74,7 +88,8 @@ class CustomLocalNotification {
   }) {
     final date = DateTime.now().add(duration);
 
-    flutterLocalNotificationsPlugin.zonedSchedule(
+    flutterLocalNotificationsPlugin
+        .zonedSchedule(
       notification.id,
       notification.title,
       notification.body,
@@ -87,7 +102,20 @@ class CustomLocalNotification {
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
-    );
+    )
+        .then((_) {
+      // TODO: salvar notificação em local storage para criar "área de notificações"
+      print("""
+          Notificação Recebida... 
+
+          ID: ${notification.id}, 
+          Title: ${notification.title},
+          Body: ${notification.body},
+          Payload: ${notification.payload},
+          Remote Message: ${notification.remoteMessage},
+
+          """);
+    });
   }
 
   checkForNotifications() async {
