@@ -13,6 +13,9 @@ class CustomFirebaseMessaging {
 
   factory CustomFirebaseMessaging() => _singleton;
 
+  getTokenFirebase() async => debugPrint(
+      'Firebase Token: ${await FirebaseMessaging.instance.getToken()}');
+
   Future<void> initialize({VoidCallback? callback}) async {
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(
@@ -70,9 +73,18 @@ class CustomFirebaseMessaging {
           navigatorKey.currentState?.pushNamed(message.data['route']);
         }
       },
-    );
+    ).onData((data) {
+      final notification = data.notification;
+      // TODO: salvar notificação em local storage para criar "área de notificações"
+      print("""
+          Notificação Recebida... 
+      
+          ID: ${notification.hashCode}, 
+          Title: ${notification?.title},
+          Body: ${notification?.body},
+          Payload: ${data.data},
+      
+          """);
+    });
   }
-
-  getTokenFirebase() async => debugPrint(
-      'Firebase Token: ${await FirebaseMessaging.instance.getToken()}');
 }
