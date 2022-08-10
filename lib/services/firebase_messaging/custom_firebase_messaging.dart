@@ -56,7 +56,10 @@ class CustomFirebaseMessaging {
           );
         }
       },
-    );
+    ).onData((data) {
+      print(
+          "Dados do Push: ${data.category}, ${data.collapseKey}, ${data.data}, ${data.notification?.title}");
+    });
 
     FirebaseMessaging.onMessageOpenedApp.listen(
       (message) {
@@ -70,7 +73,10 @@ class CustomFirebaseMessaging {
           navigatorKey.currentState?.pushNamed(message.data['route']);
         }
       },
-    );
+    ).onData((data) {
+      print(
+          "Dados do Push: ${data.category}, ${data.collapseKey}, ${data.data}, ${data.notification?.title}");
+    });
   }
 
   getTokenFirebase() async => debugPrint(

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:firebase_playground/i18n/i18n_localizations.dart';
 import 'package:firebase_playground/pages/auth/auth_page.dart';
 import 'package:firebase_playground/pages/crashlytics/crashlytics_page.dart';
 import 'package:firebase_playground/pages/firestore/firestore_page.dart';
@@ -30,6 +29,8 @@ Future<void> main() async {
 
       await CustomFirebaseMessaging().initialize(
           callback: () => CustomFirebaseRemoteConfig().forceFetch());
+
+      await CustomFirebaseMessaging().getTokenFirebase();
 
       FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
