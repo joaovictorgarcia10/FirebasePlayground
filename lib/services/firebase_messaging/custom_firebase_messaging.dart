@@ -47,7 +47,7 @@ class CustomFirebaseMessaging {
           );
         }
 
-        /// TODO: finalizar integração para Remote Push Notifications no IOS
+        /// TODO: Integração para Remote Push Notifications no IOS (necessita da Apple Developer Key para funcionar)
         if (notification != null && apple != null) {
           _customLocalNotification.showNotification(
             LocalNotification(
@@ -74,16 +74,26 @@ class CustomFirebaseMessaging {
         }
       },
     ).onData((data) {
-      final notification = data.notification;
       // TODO: salvar notificação em local storage para criar "área de notificações"
+      final notification = data.notification;
+
+      if (notification != null) {
+        notificationsList.value.add(
+          LocalNotification(
+            id: notification.hashCode,
+            title: notification.title!,
+            body: notification.body!,
+            payload: data.data["route"],
+          ),
+        );
+      }
+
       print("""
           Notificação Recebida... 
-      
           ID: ${notification.hashCode}, 
           Title: ${notification?.title},
           Body: ${notification?.body},
           Payload: ${data.data},
-      
           """);
     });
   }

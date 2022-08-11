@@ -1,4 +1,4 @@
-# firebase_playground
+# Firebase Playground
 
 A new Flutter project.
 

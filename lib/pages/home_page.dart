@@ -1,4 +1,3 @@
-import 'package:firebase_playground/i18n/i18n.dart';
 import 'package:firebase_playground/services/firebase_remote_config/custom_firebase_remote_config.dart';
 import 'package:firebase_playground/services/firebase_remote_config/custom_visibility_widget.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("title".i18n()),
+        title: const Text("Firebase Playground"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -70,12 +69,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               const SizedBox(height: 20.0),
-
-              TextButton(
-                key: const Key("button_test_example"),
-                onPressed: () => Navigator.pushNamed(context, "/test_example"),
-                child: const Text("Test Example"),
-              ),
             ],
           ),
         ),

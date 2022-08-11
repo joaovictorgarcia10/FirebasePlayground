@@ -8,8 +8,6 @@ import 'package:firebase_playground/pages/messaging/messaging_page.dart';
 import 'package:firebase_playground/pages/messaging/notifications_page.dart';
 import 'package:firebase_playground/pages/remote_config/remote_config_page.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_playground/pages/example/example_page.dart';
-import 'package:firebase_playground/pages/splash_page.dart';
 import 'package:firebase_playground/services/firebase_messaging/custom_firebase_messaging.dart';
 import 'package:firebase_playground/services/firebase_remote_config/custom_firebase_remote_config.dart';
 import 'package:flutter/material.dart';
@@ -59,9 +57,8 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Firebase Playground',
       navigatorKey: navigatorKey,
       theme: ThemeData(primarySwatch: Colors.red, brightness: Brightness.dark),
-      initialRoute: '/splash',
+      initialRoute: '/home',
       routes: {
-        '/splash': (context) => const SplashPage(),
         '/home': (context) => const HomePage(),
         '/notifications': (context) => const NotificationsPage(),
         '/remote_config': (context) => const RemoteConfigPage(),
@@ -69,7 +66,6 @@ class _MyAppState extends State<MyApp> {
         '/crashlytics': (context) => const CrashlyticsPage(),
         '/auth': (context) => const AuthPage(),
         '/firestore': (context) => const FirestorePage(),
-        '/test_example': (context) => const ExamplePage(),
       },
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
@@ -85,3 +81,6 @@ class _MyAppState extends State<MyApp> {
 }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+final ValueNotifier<List<LocalNotification>> notificationsList =
+    ValueNotifier([]);

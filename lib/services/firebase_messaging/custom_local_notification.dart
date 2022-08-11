@@ -69,15 +69,23 @@ class CustomLocalNotification {
     )
         .then((_) {
       // TODO: salvar notificação em local storage para criar "área de notificações"
+      notificationsList.value.add(
+        LocalNotification(
+          id: notification.hashCode,
+          title: notification.title,
+          body: notification.body,
+          payload: notification.payload,
+          remoteMessage: notification.remoteMessage,
+        ),
+      );
+
       print("""
           Notificação Recebida... 
-
           ID: ${notification.id}, 
           Title: ${notification.title},
           Body: ${notification.body},
           Payload: ${notification.payload},
           Remote Message: ${notification.remoteMessage},
-
           """);
     });
   }
@@ -105,15 +113,23 @@ class CustomLocalNotification {
     )
         .then((_) {
       // TODO: salvar notificação em local storage para criar "área de notificações"
+      notificationsList.value.add(
+        LocalNotification(
+          id: notification.hashCode,
+          title: notification.title,
+          body: notification.body,
+          payload: notification.payload,
+          remoteMessage: notification.remoteMessage,
+        ),
+      );
+
       print("""
           Notificação Recebida... 
-
           ID: ${notification.id}, 
           Title: ${notification.title},
           Body: ${notification.body},
           Payload: ${notification.payload},
           Remote Message: ${notification.remoteMessage},
-
           """);
     });
   }
