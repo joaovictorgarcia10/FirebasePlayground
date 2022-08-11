@@ -11,16 +11,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_playground/services/firebase_messaging/custom_firebase_messaging.dart';
 import 'package:firebase_playground/services/firebase_remote_config/custom_firebase_remote_config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'services/firebase_messaging/custom_local_notification.dart';
 
 Future<void> main() async {
-  // runZonedGuarded para registrar erros no FirebaseCrashlytics
   await runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
 
-      // Firebase Services
       await Firebase.initializeApp();
 
       await CustomFirebaseRemoteConfig().initialize();
@@ -30,10 +27,10 @@ Future<void> main() async {
 
       await CustomFirebaseMessaging().getTokenFirebase();
 
-      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-
       // Check for Scheculed Notifications
       CustomLocalNotification().checkForNotifications();
+
+      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
     },
     // onError
     (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack),
@@ -67,15 +64,6 @@ class _MyAppState extends State<MyApp> {
         '/auth': (context) => const AuthPage(),
         '/firestore': (context) => const FirestorePage(),
       },
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale("pt", "BR"),
-        Locale("en", "US"),
-      ],
     );
   }
 }
